@@ -35,8 +35,9 @@ class Single_Linked_List
 
     void reverse();
     void print();
+    void reverse_r(Node *left_node, Node *middle_node, Node *right_list); // reverse with recursion
 
-    bool is_number(const std::string& s);
+    bool is_number(const std::string &s);
 
     Node *head;
     size_t length;
@@ -91,6 +92,31 @@ void Single_Linked_List::reverse()
     head = pre;
 }
 
+void Single_Linked_List::reverse_r(Node *left_node, Node* middle_node, Node *right_list)
+{
+    if (middle_node == NULL)
+    {
+        head = left_node;
+        return;
+    }
+    else if (right_list == NULL)
+    {
+        head = middle_node;
+        return;
+    }
+    else
+    {
+        Node *temp;
+        middle_node->next = left_node;
+        left_node = middle_node;
+        temp = right_list->next;
+        right_list->next = middle_node;
+        middle_node = right_list;
+        right_list = temp;
+        reverse_r(left_node, middle_node, right_list);
+    }
+}
+
 void Single_Linked_List::print()
 {
     Node *pointer = head;
@@ -103,10 +129,11 @@ void Single_Linked_List::print()
          << ", length: " << length << endl;
 }
 
-bool Single_Linked_List::is_number(const std::string& s)
+bool Single_Linked_List::is_number(const std::string &s)
 {
     std::string::const_iterator it = s.begin();
-    while (it != s.end() && std::isdigit(*it)) ++it;
+    while (it != s.end() && std::isdigit(*it))
+        ++it;
     return !s.empty() && it == s.end();
 }
 
@@ -117,11 +144,14 @@ int main(int argc, char *argv[])
         cerr << "Usage: " << argv[0] << " <Size of the list>" << endl;
         return -1;
     }
-    
+
     Single_Linked_List sl = Single_Linked_List(string(argv[1]));
     sl.print();
 
     sl.reverse();
+    sl.print();
+
+    sl.reverse_r(NULL, sl.head, (sl.head==NULL)? NULL:sl.head->next);
     sl.print();
 
     return 0;
