@@ -111,9 +111,11 @@ long queueTime(std::vector<int> customers, int n)
 
 int main()
 {
-    assert(queueTime(std::vector<int>{5,3,4}, 1) == 12);
-    assert(queueTime(std::vector<int>{10,2,3,3}, 2) == 10);
-    assert(queueTime(std::vector<int>{2,3,10}, 2) == 12);
+    assert(queueTime(std::vector<int>{}, 1) == 0);
+    assert(queueTime(std::vector<int>{5, 3, 4}, 1) == 12);
+    assert(queueTime(std::vector<int>{10, 2, 3, 3}, 2) == 10);
+    assert(queueTime(std::vector<int>{2, 3, 10}, 2) == 12);
+    assert(queueTime(std::vector<int>{2, 3, 10}, 100) == 10);
 
     return 0;
 }
