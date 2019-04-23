@@ -151,15 +151,12 @@ int main()
     assert(queueTime(std::vector<int>{10, 2, 3, 3}, 2) == 10);
     assert(queueTime(std::vector<int>{2, 3, 10}, 2) == 12);
     assert(queueTime(std::vector<int>{2, 3, 10}, 100) == 10);
-<<<<<<< HEAD
 
     assert(queueTime_v2(std::vector<int>{}, 1) == 0);
     assert(queueTime_v2(std::vector<int>{5, 3, 4}, 1) == 12);
     assert(queueTime_v2(std::vector<int>{10, 2, 3, 3}, 2) == 10);
     assert(queueTime_v2(std::vector<int>{2, 3, 10}, 2) == 12);
     assert(queueTime_v2(std::vector<int>{2, 3, 10}, 100) == 10);
-=======
->>>>>>> 5b6855a1372eb7f3a85173045c81cebbc43f78c0
 
     return 0;
 }
