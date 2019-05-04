@@ -110,7 +110,7 @@ Error_code List<List_entry>::insert(int position, const List_entry &x)
 template <class List_entry>
 Error_code List<List_entry>::remove(int position, List_entry &x)
 {
-    if (is_out_of_bound())
+    if (is_out_of_bound(position))
     {
         return out_of_bound;
     }
@@ -137,7 +137,7 @@ void List<List_entry>::traverse(void (*visit)(List_entry &))
 template <class List_entry>
 Error_code List<List_entry>::replace(int position, const List_entry &x)
 {
-    if (is_out_of_bound())
+    if (is_out_of_bound(position))
     {
         return out_of_bound;
     }
