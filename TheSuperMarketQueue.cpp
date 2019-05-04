@@ -33,6 +33,7 @@
 
 #include <vector>
 #include <cassert>
+#include <iostream>
 
 std::vector<int> get_n_customer(std::vector<int> &queue, int n)
 {
@@ -109,6 +110,40 @@ long queueTime(std::vector<int> customers, int n)
     return result;
 }
 
+#include <algorithm>
+
+long queueTime_v2(std::vector<int> customers, int n)
+{
+    if (customers.size() == 0)
+    {
+        return 0;
+    }
+    if (customers.size() <= n)
+    {
+        return *std::max_element(customers.begin(), customers.end());
+    }
+
+    std::vector<int> the_tills;
+
+    the_tills = get_n_customer(customers, n);
+
+    while (customers.size() > 0)
+    {
+        int min = *std::min_element(the_tills.begin(), the_tills.end());
+
+        for (int i = 0; i < the_tills.size(); i++)
+        {
+            if (the_tills[i] == min && customers.size() > 0)
+            {
+                the_tills[i] += get_the_next_available_customer(customers);
+            }
+        }
+    }
+
+    long result = *std::max_element(the_tills.begin(), the_tills.end());
+    return result;
+}
+
 int main()
 {
     assert(queueTime(std::vector<int>{}, 1) == 0);
@@ -116,6 +151,12 @@ int main()
     assert(queueTime(std::vector<int>{10, 2, 3, 3}, 2) == 10);
     assert(queueTime(std::vector<int>{2, 3, 10}, 2) == 12);
     assert(queueTime(std::vector<int>{2, 3, 10}, 100) == 10);
+
+    assert(queueTime_v2(std::vector<int>{}, 1) == 0);
+    assert(queueTime_v2(std::vector<int>{5, 3, 4}, 1) == 12);
+    assert(queueTime_v2(std::vector<int>{10, 2, 3, 3}, 2) == 10);
+    assert(queueTime_v2(std::vector<int>{2, 3, 10}, 2) == 12);
+    assert(queueTime_v2(std::vector<int>{2, 3, 10}, 100) == 10);
 
     return 0;
 }
