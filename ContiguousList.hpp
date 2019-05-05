@@ -209,4 +209,38 @@ Error_code insert_first(const List_entry &x, List<List_entry> &a_list)
     return success;
 }
 
+template <class List_entry>
+Error_code remove_first(List_entry &x, List<List_entry> &a_list)
+{
+    Error_code ret;
+    ret = a_list.retrieve(0, x);
+    if (ret != success)
+    {
+        return ret;
+    }
+    
+    List_entry temp;
+    for (int i = 0; i < a_list.count(); i++)
+    {
+        ret = a_list.retrieve(i+1, temp);
+        if (ret != success)
+        {
+            return ret;
+        }
+        
+        ret = a_list.replace(i, temp);
+        if (ret != success)
+        {
+            return ret;
+        }
+
+        ret = a_list.remove(a_list.count()-1, temp);
+        if (ret != success)
+        {
+            return ret;
+        }
+    }
+    return success;
+}
+
 #endif
