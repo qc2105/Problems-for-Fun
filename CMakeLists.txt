@@ -6,3 +6,4 @@ target_link_libraries(single_linked_list)
 add_executable(TheSuperMarketQueue TheSuperMarketQueue.cpp)
 
 add_executable(testContiguousList testContiguousList.cpp)
+target_link_libraries(testContiguousList gtest pthread)

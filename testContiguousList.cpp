@@ -1,14 +1,24 @@
 #include <iostream>
+#include <gtest/gtest.h>
+
+using ::testing::InitGoogleTest;
+using ::testing::Test;
 
 #include "ContiguousList.hpp"
 
 using namespace std;
 
-int main(int argc, char *argv[])
+TEST(TestContiguousList, test_size)
 {
     List<int> myList = List<int>();
+    ASSERT_EQ(myList.size(), 0);
+}
 
-    cout << "size: " << myList.size() << endl;
+int main(int argc, char *argv[])
+{
+    InitGoogleTest();
+
+    RUN_ALL_TESTS();
 
     return 0;
 }
