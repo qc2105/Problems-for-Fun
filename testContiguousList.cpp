@@ -33,6 +33,58 @@ TEST(TestContiguousList, test_insert_retrieve)
     ASSERT_EQ(y, 6);
 }
 
+TEST(TestContiguousList, test_remove)
+{
+    double value = 0.1;
+    List<double> list = List<double>();
+
+    list.insert(0, 0.0);
+    list.insert(1, 1.0);
+    list.insert(2, 2.0);
+
+    list.remove(1, value);
+    ASSERT_EQ(1, value);
+    ASSERT_EQ(2, list.size());
+    list.retrieve(0, value);
+    ASSERT_EQ(value , 0.0);
+    list.retrieve(1, value);
+    ASSERT_EQ(value, 2.0);
+}
+
+TEST(TestContiguousList, test_insert_last)
+{
+    List<double> list = List<double>();
+    double value = 0.1;
+
+    insert_last(0.0, list);
+    list.retrieve(0, value);
+    ASSERT_EQ(0.0, value);
+
+    list.insert(1, 1.0);
+    list.insert(2, 2.0);
+
+    insert_last<double>(3.0, list);
+    list.retrieve(3, value);
+    ASSERT_EQ(3.0, value);
+}
+
+TEST(TestContiguousList, test_remove_last)
+{
+    double value = 0.1;
+    List<double> list = List<double>();
+
+    list.insert(0, 0.0);
+    list.insert(1, 1.0);
+    list.insert(2, 2.0);
+
+    remove_last(value, list);
+    ASSERT_EQ(value , 2.0);
+    ASSERT_EQ(2, list.size());
+
+    list.retrieve(list.size() - 1, value);
+    ASSERT_EQ(1.0, value);
+}
+
 int main(int argc, char *argv[])
 {
     InitGoogleTest();

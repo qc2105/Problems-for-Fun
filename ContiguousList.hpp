@@ -122,6 +122,7 @@ Error_code List<List_entry>::remove(int position, List_entry &x)
         entry[position] = entry[position + 1];
     }
 
+    count--;
     return success;
 }
 
@@ -241,6 +242,32 @@ Error_code remove_first(List_entry &x, List<List_entry> &a_list)
         }
     }
     return success;
+}
+
+template <class List_entry>
+Error_code insert_last(const List_entry &x, List<List_entry> &a_list)
+{
+    if (a_list.size() == 0)
+    {
+        return a_list.insert(0, x);
+    }
+    else
+    {
+        return a_list.insert(a_list.size(), x);
+    }
+}
+
+template <class List_entry>
+Error_code remove_last(List_entry &x, List<List_entry> &a_list)
+{
+    if (a_list.size() == 0)
+    {
+        return out_of_bound;
+    }
+    else
+    {
+        return a_list.remove(a_list.size()-1, x);
+    }  
 }
 
 #endif
