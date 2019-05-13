@@ -270,4 +270,10 @@ Error_code remove_last(List_entry &x, List<List_entry> &a_list)
     }
 }
 
+template <class List_entry>
+Error_code median_list(List_entry &x, List<List_entry> &a_list)
+{
+    return a_list.retrieve((a_list.size() - 1) / 2, x);
+}
+
 #endif

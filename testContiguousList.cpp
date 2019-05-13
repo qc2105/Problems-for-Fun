@@ -85,6 +85,26 @@ TEST(TestContiguousList, test_remove_last)
     ASSERT_EQ(1.0, value);
 }
 
+TEST(TestContiguousList, test_median_list)
+{
+    double value = 0.1;
+    List<double> list = List<double>();
+
+    list.insert(0, 0.0);
+    list.insert(1, 1.0);
+    list.insert(2, 2.0);
+
+    median_list(value, list);
+    ASSERT_EQ(value, 1.0);
+
+    list.insert(3, 3.0);
+    list.insert(4, 4.0);
+    list.insert(5, 5.0);
+
+    median_list(value, list);
+    ASSERT_EQ(value, 2.0);
+}
+
 int main(int argc, char *argv[])
 {
     InitGoogleTest();
