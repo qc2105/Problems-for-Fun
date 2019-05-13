@@ -46,7 +46,7 @@ TEST(TestContiguousList, test_remove)
     ASSERT_EQ(1, value);
     ASSERT_EQ(2, list.size());
     list.retrieve(0, value);
-    ASSERT_EQ(value , 0.0);
+    ASSERT_EQ(value, 0.0);
     list.retrieve(1, value);
     ASSERT_EQ(value, 2.0);
 }
@@ -78,7 +78,7 @@ TEST(TestContiguousList, test_remove_last)
     list.insert(2, 2.0);
 
     remove_last(value, list);
-    ASSERT_EQ(value , 2.0);
+    ASSERT_EQ(value, 2.0);
     ASSERT_EQ(2, list.size());
 
     list.retrieve(list.size() - 1, value);
