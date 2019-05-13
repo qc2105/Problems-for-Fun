@@ -12,7 +12,7 @@ Error_code out_of_bound = -3;
 template <class List_entry>
 class List
 {
-  public:
+public:
     List();
     void clear();
 
@@ -39,7 +39,7 @@ class List
 
     void traverse(void (*visit)(List_entry &));
 
-  protected:
+protected:
     int count;
     List_entry entry[max_list];
 };
@@ -200,7 +200,7 @@ Error_code insert_first(const List_entry &x, List<List_entry> &a_list)
             return ret;
         }
     }
-    
+
     ret = a_list.replace(0, x);
     if (ret != success)
     {
@@ -219,23 +219,23 @@ Error_code remove_first(List_entry &x, List<List_entry> &a_list)
     {
         return ret;
     }
-    
+
     List_entry temp;
     for (int i = 0; i < a_list.count(); i++)
     {
-        ret = a_list.retrieve(i+1, temp);
+        ret = a_list.retrieve(i + 1, temp);
         if (ret != success)
         {
             return ret;
         }
-        
+
         ret = a_list.replace(i, temp);
         if (ret != success)
         {
             return ret;
         }
 
-        ret = a_list.remove(a_list.count()-1, temp);
+        ret = a_list.remove(a_list.count() - 1, temp);
         if (ret != success)
         {
             return ret;
@@ -266,8 +266,8 @@ Error_code remove_last(List_entry &x, List<List_entry> &a_list)
     }
     else
     {
-        return a_list.remove(a_list.size()-1, x);
-    }  
+        return a_list.remove(a_list.size() - 1, x);
+    }
 }
 
 #endif
