@@ -1,1 +1,1 @@
-1. Learn to use google test to do TDD
+<del>1. Learn to use google test to do TDD</del>
