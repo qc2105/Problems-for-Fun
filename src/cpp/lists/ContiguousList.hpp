@@ -113,6 +113,7 @@ Error_code List<List_entry>::retrieve(int postion, List_entry &x) const
     if (postion >= 0 && postion < count)
     {
         x = entry[postion];
+        return success;
     }
     else
     {
@@ -274,6 +275,29 @@ template <class List_entry>
 Error_code median_list(List_entry &x, List<List_entry> &a_list)
 {
     return a_list.retrieve((a_list.size() - 1) / 2, x);
+}
+
+template <class List_entry>
+Error_code interchange(int pos1, int pos2, List<List_entry> &a_list)
+{
+    List_entry value1, value2;
+    int ret;
+    if ((ret = a_list.retrieve(pos1, value1)) != success)
+    {
+        return ret;
+    }
+    if ((ret = a_list.retrieve(pos2, value2)) != success)
+    {
+        return ret;
+    }
+    if ((ret = a_list.replace(pos2, value1)) != success)
+    {
+        return ret;
+    }
+    if ((ret = a_list.replace(pos1, value2)) != success)
+    {
+        return ret;
+    }
 }
 
 #endif

@@ -23,7 +23,9 @@ TEST(TestContiguousList, test_function_full)
 TEST(TestContiguousList, test_insert_retrieve)
 {
     List<int> myList = List<int>();
+    int value;
     ASSERT_EQ(myList.insert(0, 5), success);
+    ASSERT_EQ(myList.retrieve(0, value), success);
     ASSERT_EQ(myList.size(), 1);
     int x, y;
     myList.retrieve(0, x);
@@ -103,6 +105,40 @@ TEST(TestContiguousList, test_median_list)
 
     median_list(value, list);
     ASSERT_EQ(value, 2.0);
+}
+
+TEST(TestContiguousList, test_replace)
+{
+    double value = 0.1;
+    List<double> list = List<double>();
+    list.insert(0, 0.0);
+    list.insert(1, 1.0);
+    list.insert(2, 2.0);
+
+    list.replace(2, 3.0);
+    list.retrieve(2, value);
+
+    ASSERT_EQ(3.0, value);
+}
+
+TEST(TestContiguousList, test_interchange)
+{
+    double value = 0.1;
+    List<double> list = List<double>();
+    list.insert(0, 0.0);
+    list.insert(1, 1.0);
+    list.insert(2, 2.0);
+
+    interchange(1, 2, list);
+    list.retrieve(1, value);
+
+    ASSERT_EQ(2.0, value);
+    list.retrieve(2, value);
+    ASSERT_EQ(1.0, value);
+
+    interchange(0, 1, list);
+    list.retrieve(0, value);
+    ASSERT_EQ(2.0, value);
 }
 
 int main(int argc, char *argv[])
