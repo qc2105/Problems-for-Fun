@@ -45,6 +45,39 @@ protected:
 };
 
 template <class List_entry>
+Error_code insert_first(const List_entry &x, List<List_entry> &a_list);
+
+template <class List_entry>
+Error_code remove_first(List_entry &x, List<List_entry> &a_list);
+
+template <class List_entry>
+Error_code insert_last(const List_entry &x, List<List_entry> &a_list);
+
+template <class List_entry>
+Error_code remove_last(List_entry &x, List<List_entry> &a_list);
+
+template <class List_entry>
+Error_code median_list(List_entry &x, List<List_entry> &a_list);
+
+template <class List_entry>
+Error_code interchange(int pos1, int pos2, List<List_entry> &a_list);
+
+template <class List_entry>
+void reverse_traverse_list(List<List_entry> &a_list, void (*visit)(List_entry &));
+
+template <class List_entry>
+Error_code copy(List<List_entry> &dest, List<List_entry> &source);
+
+template <class List_entry>
+Error_code join(List<List_entry> &list1, List<List_entry> &list2);
+
+template <class List_entry>
+void reverse(List<List_entry> &a_list);
+
+template <class List_entry>
+Error_code split(List<List_entry> &source, List<List_entry> &oddlist, List<List_entry> &evenlist);
+
+template <class List_entry>
 List<List_entry>::List()
 {
     count = 0;
@@ -146,39 +179,6 @@ Error_code List<List_entry>::replace(int position, const List_entry &x)
     entry[position] = x;
     return success;
 }
-
-template <class List_entry>
-Error_code insert_first(const List_entry &x, List<List_entry> &a_list);
-
-template <class List_entry>
-Error_code remove_first(List_entry &x, List<List_entry> &a_list);
-
-template <class List_entry>
-Error_code insert_last(const List_entry &x, List<List_entry> &a_list);
-
-template <class List_entry>
-Error_code remove_last(List_entry &x, List<List_entry> &a_list);
-
-template <class List_entry>
-Error_code median_list(List_entry &x, List<List_entry> &a_list);
-
-template <class List_entry>
-Error_code interchange(int pos1, int pos2, List<List_entry> &a_list);
-
-template <class List_entry>
-void reverse_traverse_list(List<List_entry> &a_list, void (*visit)(List_entry &));
-
-template <class List_entry>
-Error_code copy(List<List_entry> &dest, List<List_entry> &source);
-
-template <class List_entry>
-Error_code join(List<List_entry> &list1, List<List_entry> &list2);
-
-template <class List_entry>
-void reverse(List<List_entry> &a_list);
-
-template <class List_entry>
-Error_code split(List<List_entry> &source, List<List_entry> &oddlist, List<List_entry> &evenlist);
 
 template <class List_entry>
 Error_code insert_first(const List_entry &x, List<List_entry> &a_list)
