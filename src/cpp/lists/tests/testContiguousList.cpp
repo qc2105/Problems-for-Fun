@@ -141,6 +141,53 @@ TEST(TestContiguousList, test_interchange)
     ASSERT_EQ(2.0, value);
 }
 
+template <class List_entry>
+void add_one(List_entry &x)
+{
+    x += 1;
+}
+
+TEST(TestContiguousList, test_reverse_traverse)
+{
+    List<double> list = List<double>();
+    list.insert(0, 0.0);
+    list.insert(1, 1.0);
+    list.insert(2, 2.0);
+
+    reverse_traverse_list(list, add_one);
+
+    for (int i = 0; i < 3; i++)
+    {
+        double value;
+        list.retrieve(i, value);
+        ASSERT_EQ(value, double(i + 1));
+    }
+}
+
+TEST(TestContiguousList, test_copy)
+{
+    List<double> list = List<double>();
+    list.insert(0, 0.0);
+    list.insert(1, 1.0);
+    list.insert(2, 2.0);
+
+    List<double> list2 = List<double>();
+    list2.insert(0, 0.0);
+    list2.insert(1, 3.0);
+
+    copy(list2, list);
+
+    ASSERT_EQ(list.size(), list2.size());
+    for (int i = 0; i < list.size(); i++)
+    {
+        double value;
+        list.retrieve(i, value);
+        double value2;
+        list2.retrieve(i, value2);
+        ASSERT_EQ(value, value2);
+    }
+}
+
 int main(int argc, char *argv[])
 {
     InitGoogleTest();

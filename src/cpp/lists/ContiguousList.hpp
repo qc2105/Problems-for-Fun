@@ -20,6 +20,9 @@ public:
     bool full() const;
     int size() const;
 
+    template <class _List_entry> 
+    friend void reverse_traverse_list(List<_List_entry> &a_list, void (*visit)(_List_entry &));
+
     bool is_out_of_bound(int position)
     {
         if (0 <= position && position < count)
@@ -61,9 +64,6 @@ Error_code median_list(List_entry &x, List<List_entry> &a_list);
 
 template <class List_entry>
 Error_code interchange(int pos1, int pos2, List<List_entry> &a_list);
-
-template <class List_entry>
-void reverse_traverse_list(List<List_entry> &a_list, void (*visit)(List_entry &));
 
 template <class List_entry>
 Error_code copy(List<List_entry> &dest, List<List_entry> &source);
@@ -298,6 +298,36 @@ Error_code interchange(int pos1, int pos2, List<List_entry> &a_list)
     {
         return ret;
     }
+}
+
+template <class List_entry>
+void reverse_traverse_list(List<List_entry> &a_list, void (*visit)(List_entry &))
+{
+    for (int i = a_list.size() - 1; i >= 0; i--)
+    {
+        visit(a_list.entry[i]);
+    }
+}
+
+template <class List_entry>
+Error_code copy(List<List_entry> &dest, List<List_entry> &source)
+{
+    dest.clear();
+    for (int i = 0; i < source.size(); i++)
+    {
+        List_entry value;
+        int ret = source.retrieve(i, value);
+        if (ret != success)
+        {
+            return ret;
+        }
+        ret = dest.insert(i, value);
+        if (ret != success)
+        {
+            return ret;
+        }
+    }
+    return success;
 }
 
 #endif
