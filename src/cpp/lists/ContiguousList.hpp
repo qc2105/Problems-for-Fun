@@ -20,7 +20,7 @@ public:
     bool full() const;
     int size() const;
 
-    template <class _List_entry> 
+    template <class _List_entry>
     friend void reverse_traverse_list(List<_List_entry> &a_list, void (*visit)(_List_entry &));
 
     bool is_out_of_bound(int position)
@@ -69,7 +69,7 @@ template <class List_entry>
 Error_code copy(List<List_entry> &dest, List<List_entry> &source);
 
 template <class List_entry>
-Error_code join(List<List_entry> &list1, List<List_entry> &list2);
+Error_code join(List<List_entry> &source, List<List_entry> &target);
 
 template <class List_entry>
 void reverse(List<List_entry> &a_list);
@@ -327,6 +327,75 @@ Error_code copy(List<List_entry> &dest, List<List_entry> &source)
             return ret;
         }
     }
+    return success;
+}
+
+template <class List_entry>
+Error_code join(List<List_entry> &source, List<List_entry> &target)
+{
+    for (int i = 0; i < source.size(); i++)
+    {
+        List_entry value;
+        int ret = source.retrieve(i, value);
+        if (ret != success)
+        {
+            return success;
+        }
+        ret = target.insert(target.size(), value);
+        if (ret != success)
+        {
+            return success;
+        }
+    }
+    return success;
+}
+
+template <class List_entry>
+void reverse(List<List_entry> &a_list)
+{
+    for (int i = 0; i < a_list.size() / 2; i++)
+    {
+        double value;
+        double value2;
+        a_list.retrieve(i, value);
+        a_list.retrieve(a_list.size() - 1 - i, value2);
+        a_list.replace(a_list.size() - 1 - i, value);
+        a_list.replace(i, value2);
+    }
+}
+
+template <class List_entry>
+Error_code split(List<List_entry> &source, List<List_entry> &oddlist, List<List_entry> &evenlist)
+{
+    oddlist.clear();
+    evenlist.clear();
+
+    for (int i = 0; i < source.size(); i++)
+    {
+        double value;
+        int ret = source.retrieve(i, value);
+        if (success != ret)
+        {
+            return ret;
+        }
+        if (0 == i % 2)
+        {
+            ret = insert_last(value, evenlist);
+            if (success != ret)
+            {
+                return ret;
+            }
+        }
+        else
+        {
+            ret = insert_last(value, oddlist);
+            if (success != ret)
+            {
+                return ret;
+            }
+        }
+    }
+
     return success;
 }
 

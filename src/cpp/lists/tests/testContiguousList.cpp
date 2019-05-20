@@ -188,6 +188,106 @@ TEST(TestContiguousList, test_copy)
     }
 }
 
+TEST(TestContiguousList, test_join)
+{
+    List<double> list = List<double>();
+    list.insert(0, 0.0);
+    list.insert(1, 1.0);
+    list.insert(2, 2.0);
+
+    List<double> list2 = List<double>();
+    list2.insert(0, 0.0);
+    list2.insert(1, 3.0);
+
+    join(list, list2);
+
+    ASSERT_EQ(list.size(), 3);
+    ASSERT_EQ(list2.size(), 5);
+
+    for (int i = 0; i < list.size(); i++)
+    {
+        double value;
+        list.retrieve(i, value);
+        ASSERT_EQ(value, i);
+    }
+
+    double value2;
+    list2.retrieve(0, value2);
+    ASSERT_EQ(value2, 0.0);
+    list2.retrieve(1, value2);
+    ASSERT_EQ(value2, 3.0);
+
+    for (int i = 2; i < list2.size(); i++)
+    {
+        double value;
+        list.retrieve(i - 2, value);
+        double value2;
+        list2.retrieve(i, value2);
+        ASSERT_EQ(value, value2);
+    }
+}
+
+TEST(TestContiguousList, test_reverse)
+{
+    List<double> list = List<double>();
+    list.insert(0, 0.0);
+    list.insert(1, 1.0);
+    list.insert(2, 2.0);
+
+    reverse(list);
+
+    for (int i = 0; i < list.size(); i++)
+    {
+        double value;
+        list.retrieve(list.size() - 1 - i, value);
+        ASSERT_EQ(value, i);
+    }
+}
+
+TEST(TestContiguousList, test_split)
+{
+    List<double> list = List<double>();
+    list.insert(0, 0.0);
+    list.insert(1, 1.0);
+    list.insert(2, 2.0);
+    list.insert(3, 3.0);
+    list.insert(4, 4.0);
+
+    List<double> oddList = List<double>();
+    oddList.insert(0, 10.0);
+    oddList.insert(1, 11.0);
+
+    List<double> evenList = List<double>();
+    evenList.insert(0, 20.0);
+    evenList.insert(1, 21.0);
+
+    split(list, oddList, evenList);
+
+    ASSERT_EQ(oddList.size(), 2);
+    ASSERT_EQ(evenList.size(), 3);
+
+    for (int i = 0; i < list.size(); i++)
+    {
+        double value;
+        list.retrieve(i, value);
+        ASSERT_EQ(i, value);
+    }
+
+    for (int i = 0; i < oddList.size(); i++)
+    {
+        double value;
+        oddList.retrieve(i, value);
+        ASSERT_EQ(i * 2 + 1, value);
+    }
+
+    for (int i = 0; i < evenList.size(); i++)
+    {
+        double value;
+        evenList.retrieve(i, value);
+        ASSERT_EQ(i * 2, value);
+    }
+}
+
 int main(int argc, char *argv[])
 {
     InitGoogleTest();
