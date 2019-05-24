@@ -2,6 +2,7 @@
 
 import os
 
+
 # return the nth fibo number
 def fibo(n):
     if n == 0:
@@ -36,5 +37,3 @@ if __name__ == '__main__':
     elif os.sys.argv[1] == "l":
         for n in range(count):
             print(str(n) + ": " + str(fibo_the_loop_way(n)))
-
-
