@@ -1,6 +1,12 @@
 #ifndef SIMPLY_LINKED_LIST_HPP
 #define SIMPLY_LINKED_LIST_HPP
 
+typedef const int Error_code;
+Error_code success = 0;
+Error_code overflow = -1;
+Error_code range_error = -2;
+Error_code out_of_bound = -3;
+
 template <class Node_entry>
 class Node
 {
@@ -32,8 +38,33 @@ class SimplyLinkedList
 public:
     SimplyLinkedList();
     ~SimplyLinkedList();
-
+    
+    bool empty();
+    bool full();
+    void clear();
     int size() const;
+
+    template <class _List_entry>
+    friend void reverse_traverse_list(SimplyLinkedList<_List_entry> &a_list, void (*visit)(_List_entry &));
+
+    bool is_out_of_bound(int position)
+    {
+        if (0 <= position && position < count)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    Error_code insert(int position, const List_entry &x);
+    Error_code remove(int position, List_entry &x);
+    Error_code retrieve(int position, List_entry &x) const;
+    Error_code replace(int position, const List_entry &x);
+
+    void traverse(void (*visit)(List_entry &));
 
 protected:
     int count;
