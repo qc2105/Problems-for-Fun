@@ -10,3 +10,6 @@ add_executable(TheSuperMarketQueue src/cpp/TheSuperMarketQueue.cpp)
 
 add_executable(testContiguousList src/cpp/lists/tests/testContiguousList.cpp)
 target_link_libraries(testContiguousList gtest pthread)
+
+add_executable(testSimplyLinkedList src/cpp/lists/tests/testSimplyLinkedList.cpp)
+target_link_libraries(testSimplyLinkedList gtest pthread)
