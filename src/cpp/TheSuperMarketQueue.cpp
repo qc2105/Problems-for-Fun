@@ -80,14 +80,14 @@ long queueTime(std::vector<int> customers, int n)
 
     while (true)
     {
-        for (int i = 0; i < the_chosen.size(); i++)
+        for (size_t i = 0; i < the_chosen.size(); i++)
         {
             if (the_chosen[i] > 0)
             {
                 the_chosen[i]--;
             }
         }
-        for (int i = 0; i < the_chosen.size(); i++)
+        for (size_t i = 0; i < the_chosen.size(); i++)
         {
             if (the_chosen[i] == 0 && queue.size() > 0)
             {
@@ -97,7 +97,7 @@ long queueTime(std::vector<int> customers, int n)
 
         result++;
         int sum = 0;
-        for (int i = 0; i < the_chosen.size(); i++)
+        for (size_t i = 0; i < the_chosen.size(); i++)
         {
             sum += the_chosen[i];
         }
@@ -112,7 +112,7 @@ long queueTime(std::vector<int> customers, int n)
 
 #include <algorithm>
 
-long queueTime_v2(std::vector<int> customers, int n)
+long queueTime_v2(std::vector<int> customers, size_t n)
 {
     if (customers.size() == 0)
     {
@@ -131,7 +131,7 @@ long queueTime_v2(std::vector<int> customers, int n)
     {
         int min = *std::min_element(the_tills.begin(), the_tills.end());
 
-        for (int i = 0; i < the_tills.size(); i++)
+        for (size_t i = 0; i < the_tills.size(); i++)
         {
             if (the_tills[i] == min && customers.size() > 0)
             {

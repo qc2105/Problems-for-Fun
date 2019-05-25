@@ -298,6 +298,8 @@ Error_code interchange(int pos1, int pos2, List<List_entry> &a_list)
     {
         return ret;
     }
+
+    return success;
 }
 
 template <class List_entry>

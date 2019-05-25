@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.1.0)
 project("Problems for Fun")
 
+set(CMAKE_CXX_FLAGS "-g -Wall")
+
 include_directories(src/cpp/lists)
 
 add_executable(single_linked_list src/cpp/lists/single_linked_list.cpp)
