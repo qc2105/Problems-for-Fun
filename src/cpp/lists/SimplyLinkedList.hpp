@@ -41,7 +41,7 @@ public:
     SimplyLinkedList(const SimplyLinkedList<List_entry> &);
     ~SimplyLinkedList();
 
-    SimplyLinkedList<List_entry> &operator=(const SimplyLinkedList<List_entry> );
+    SimplyLinkedList<List_entry> &operator=(const SimplyLinkedList<List_entry>);
 
     bool empty() const;
     void clear();
@@ -88,13 +88,16 @@ SimplyLinkedList<List_entry>::SimplyLinkedList()
 template <class List_entry>
 SimplyLinkedList<List_entry>::SimplyLinkedList(const SimplyLinkedList &src_list)
 {
-    clear();
-    List_entry value;
-
-    for (int i = 0; i < src_list.size(); i++)
+    if (this != &src_list)
     {
-        src_list.retrieve(i, value);
-        insert(i, value);
+        clear();
+        List_entry value;
+
+        for (int i = 0; i < src_list.size(); i++)
+        {
+            src_list.retrieve(i, value);
+            insert(i, value);
+        }
     }
 }
 
