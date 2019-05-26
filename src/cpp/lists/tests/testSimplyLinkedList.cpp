@@ -31,6 +31,46 @@ TEST(TestSimplyLinkedList, test_list_contor)
     ASSERT_EQ(slist.size(), 0);
 }
 
+TEST(TestSimplyLinkedList, test_list_copy_contor)
+{
+    SimplyLinkedList<int> slist = SimplyLinkedList<int>();
+    slist.insert(0, 0);
+    slist.insert(1, 1);
+    slist.insert(2, 2);
+
+    SimplyLinkedList<int> copied(slist);
+
+    int value = -1;
+    copied.retrieve(0, value);
+    ASSERT_EQ(value, 0);
+
+    copied.retrieve(1, value);
+    ASSERT_EQ(value, 1);
+
+    copied.retrieve(2, value);
+    ASSERT_EQ(value, 2);
+}
+
+TEST(TestSimplyLinkedList, test_assignment_operator)
+{
+    SimplyLinkedList<int> slist = SimplyLinkedList<int>();
+    slist.insert(0, 0);
+    slist.insert(1, 1);
+    slist.insert(2, 2);
+
+    SimplyLinkedList<int> assigned = slist;
+
+    int value = -1;
+    assigned.retrieve(0, value);
+    ASSERT_EQ(value, 0);
+
+    assigned.retrieve(1, value);
+    ASSERT_EQ(value, 1);
+
+    assigned.retrieve(2, value);
+    ASSERT_EQ(value, 2);
+}
+
 TEST(TestSimplyLinkedList, test_empty)
 {
     SimplyLinkedList<float> slist = SimplyLinkedList<float>();

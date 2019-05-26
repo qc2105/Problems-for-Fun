@@ -38,7 +38,10 @@ class SimplyLinkedList
 {
 public:
     SimplyLinkedList();
+    SimplyLinkedList(const SimplyLinkedList<List_entry> &);
     ~SimplyLinkedList();
+
+    SimplyLinkedList<List_entry> &operator=(const SimplyLinkedList<List_entry> );
 
     bool empty() const;
     void clear();
@@ -83,6 +86,19 @@ SimplyLinkedList<List_entry>::SimplyLinkedList()
 }
 
 template <class List_entry>
+SimplyLinkedList<List_entry>::SimplyLinkedList(const SimplyLinkedList &src_list)
+{
+    clear();
+    List_entry value;
+
+    for (int i = 0; i < src_list.size(); i++)
+    {
+        src_list.retrieve(i, value);
+        insert(i, value);
+    }
+}
+
+template <class List_entry>
 SimplyLinkedList<List_entry>::~SimplyLinkedList()
 {
     Node<List_entry> *it_pointer;
@@ -97,6 +113,24 @@ SimplyLinkedList<List_entry>::~SimplyLinkedList()
     }
     head = NULL;
     set_position(0);
+}
+
+template <class List_entry>
+SimplyLinkedList<List_entry> &SimplyLinkedList<List_entry>::operator=(const SimplyLinkedList<List_entry> other)
+{
+    if (this != &other)
+    {
+        this->clear();
+        List_entry value;
+
+        for (int i = 0; i < other.size(); i++)
+        {
+            other.retrieve(i, value);
+            this->insert(i, value);
+        }
+    }
+
+    return *this;
 }
 
 template <class List_entry>
@@ -167,7 +201,12 @@ Error_code SimplyLinkedList<List_entry>::insert(int position, const List_entry &
     }
 
     Node<List_entry> *newNode, *pre, *next;
-    if (position > 0)
+
+    if (0 == position)
+    {
+        next = head;
+    }
+    else
     {
         set_position(position - 1);
         pre = current;
@@ -179,10 +218,6 @@ Error_code SimplyLinkedList<List_entry>::insert(int position, const List_entry &
         {
             next = NULL;
         }
-    }
-    else
-    {
-        next = head;
     }
 
     newNode = new Node<List_entry>(x, next);
