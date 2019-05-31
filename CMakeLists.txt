@@ -15,3 +15,6 @@ target_link_libraries(testContiguousList gtest pthread)
 
 add_executable(testSimplyLinkedList src/cpp/lists/tests/testSimplyLinkedList.cpp)
 target_link_libraries(testSimplyLinkedList gtest pthread)
+
+add_executable(testDoublyLinkedList src/cpp/lists/tests/testDoublyLinkedList.cpp)
+target_link_libraries(testDoublyLinkedList gtest pthread)
