@@ -36,4 +36,17 @@ Node<Node_entry>::Node(Node_entry _entry, Node<Node_entry> *_next, Node<Node_ent
     back = _back;
 }
 
+template <class List_entry>
+class DoublyLinkedList
+{
+public:
+
+protected:
+    int count;
+    mutable int current_position;
+    mutable Node<List_entry> *current;
+
+    void set_position(int position) const;
+};
+
 #endif
