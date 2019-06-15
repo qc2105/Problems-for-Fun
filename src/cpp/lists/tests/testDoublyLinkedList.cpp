@@ -7,7 +7,7 @@ using namespace std;
 using ::testing::InitGoogleTest;
 using ::testing::Test;
 
-TEST(testDoublyLinkedList, testNodeContor)
+TEST(TestDoublyLinkedList, testNodeContor)
 {
     Node<float> nod = Node<float>();
 
@@ -20,6 +20,13 @@ TEST(testDoublyLinkedList, testNodeContor)
     ASSERT_EQ(nod2.entry, 2.f);
     ASSERT_EQ(nod2.next, &nod);
     ASSERT_EQ(nod2.back, &nod);
+}
+
+TEST(TestDoublyLinkedList, testListContor)
+{
+    DoublyLinkedList<int> dl = DoublyLinkedList<int>();
+
+    ASSERT_EQ(dl.size(), 0);
 }
 
 int main()
