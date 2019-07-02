@@ -104,18 +104,7 @@ SimplyLinkedList<List_entry>::SimplyLinkedList(const SimplyLinkedList &src_list)
 template <class List_entry>
 SimplyLinkedList<List_entry>::~SimplyLinkedList()
 {
-    Node<List_entry> *it_pointer;
-    Node<List_entry> *temp;
-
-    for (it_pointer = head; it_pointer != NULL;)
-    {
-        temp = it_pointer;
-        it_pointer = it_pointer->next;
-        delete temp;
-        count--;
-    }
-    head = NULL;
-    set_position(0);
+    clear();
 }
 
 template <class List_entry>
@@ -146,7 +135,7 @@ template <class List_entry>
 void SimplyLinkedList<List_entry>::clear()
 {
     Node<List_entry> *it_pointer = head;
-    Node<List_entry> *temp;
+    Node<List_entry> *temp = NULL;
 
     while (it_pointer != NULL)
     {

@@ -1,6 +1,8 @@
 #ifndef DOUBLY_LINKED_LIST_HPP
 #define DOUBLY_LINKED_LIST_HPP
 
+#include <iostream>
+
 typedef const int Error_code;
 Error_code success = 0;
 Error_code overflow = -1;
@@ -13,7 +15,7 @@ class Node
 {
 public:
     Node();
-    Node(Node_entry _entry, Node<Node_entry> *_next = NULL, Node<Node_entry> *_back = NULL);
+    Node(Node_entry _entry, Node<Node_entry> *_back = NULL, Node<Node_entry> *_next = NULL);
 
     Node_entry entry;
     Node<Node_entry> *next;
@@ -29,11 +31,11 @@ Node<Node_entry>::Node()
 }
 
 template <class Node_entry>
-Node<Node_entry>::Node(Node_entry _entry, Node<Node_entry> *_next, Node<Node_entry> *_back)
+Node<Node_entry>::Node(Node_entry _entry, Node<Node_entry> *_back, Node<Node_entry> *_next)
 {
     entry = _entry;
-    next = _next;
     back = _back;
+    next = _next;
 }
 
 template <class List_entry>
@@ -47,6 +49,20 @@ public:
     bool empty() const;
     void clear();
     int size() const;
+
+    bool is_out_of_bound(int position) const
+    {
+        if (0 <= position && position < count)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    Error_code insert(int position, const List_entry &x);
 
 protected:
     int count = 0;
@@ -67,27 +83,96 @@ DoublyLinkedList<List_entry>::DoublyLinkedList()
 template <class List_entry>
 DoublyLinkedList<List_entry>::~DoublyLinkedList()
 {
-    Node<List_entry> *pNode_forward, *pNode_backward;
-    pNode_backward = pNode_forward = current;
+    clear();
+}
+
+template <class List_entry>
+bool DoublyLinkedList<List_entry>::empty() const
+{
+    return count == 0;
+}
+
+template <class List_entry>
+void DoublyLinkedList<List_entry>::clear()
+{
+    Node<List_entry> *pNode_forward = NULL, *pNode_backward = NULL, *temp = NULL;
+    pNode_forward = current;
+    if (NULL != current)
+    {
+        pNode_backward = current->back;
+    }
     while (pNode_forward != NULL)
     {
-        delete pNode_forward++;
+        temp = pNode_forward;
+        pNode_forward = pNode_forward->next;
+        delete temp;
         count--;
     }
     while (pNode_backward != NULL)
     {
-        delete --pNode_backward;
+        temp = pNode_backward;
+        pNode_backward = pNode_backward->back;
+        delete temp;
         count--;
     }
 
-    current = NULL;
     set_position(0);
+    current = NULL;
 }
 
 template <class List_entry>
 int DoublyLinkedList<List_entry>::size() const
 {
     return count;
+}
+
+template <class List_entry>
+Error_code DoublyLinkedList<List_entry>::insert(int position, const List_entry &x)
+{
+    if (position < 0 || position > count)
+    {
+        return out_of_bound;
+    }
+
+    Node<List_entry> *new_node = NULL, *following = NULL, *preceding = NULL;
+    if (0 == position)
+    {
+        if (0 == count)
+        {
+            following = NULL;
+        }
+        else
+        {
+            set_position(0);
+            following = current;
+        }
+        preceding = NULL;
+    }
+    else
+    {
+        set_position(position - 1);
+        preceding = current;
+        following = preceding->next;
+    }
+
+    new_node = new Node<List_entry>(x, preceding, following);
+    if (NULL == new_node)
+    {
+        return overflow;
+    }
+    if (NULL != preceding)
+    {
+        preceding->next = new_node;
+    }
+    if (NULL != following)
+    {
+        following->back = new_node;
+    }
+    current = new_node;
+    current_position = position;
+    count++;
+
+    return success;
 }
 
 template <class List_entry>

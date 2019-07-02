@@ -29,6 +29,44 @@ TEST(TestDoublyLinkedList, testListContor)
     ASSERT_EQ(dl.size(), 0);
 }
 
+TEST(TestDoublyLinkedList, testEmpty)
+{
+    DoublyLinkedList<int> dl = DoublyLinkedList<int>();
+
+    ASSERT_TRUE(dl.empty());
+}
+
+TEST(TestDoublyLinkedList, testInsert)
+{
+    DoublyLinkedList<int> dl = DoublyLinkedList<int>();
+    int ret = dl.insert(100, 60);
+    ASSERT_EQ(ret, out_of_bound);
+
+    ret = dl.insert(0, 1);
+    ASSERT_EQ(ret, success);
+    ASSERT_EQ(1, dl.size());
+
+    ret = dl.insert(0, 2);
+    ASSERT_EQ(ret, success);
+    ASSERT_EQ(2, dl.size());
+
+    ret = dl.insert(1, 3);
+    ASSERT_EQ(ret, success);
+    ASSERT_EQ(3, dl.size());
+
+    ret = dl.insert(3, 4);
+    ASSERT_EQ(ret, success);
+    ASSERT_EQ(4, dl.size());
+}
+
+TEST(TestDoublyLinkedList, testClear)
+{
+    DoublyLinkedList<int> dl = DoublyLinkedList<int>();
+    dl.clear();
+
+    ASSERT_TRUE(dl.empty());
+}
+
 int main()
 {
     InitGoogleTest();
