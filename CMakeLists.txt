@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1.0)
 project("Problems for Fun")
 
-set(CMAKE_CXX_FLAGS "-g -Wall")
+set(CMAKE_CXX_FLAGS "-Wall -g -Wunused-parameter")
 
 include_directories(src/cpp/lists)
 

@@ -50,6 +50,8 @@ public:
     void clear();
     int size() const;
 
+    void traverse(void (*visit)(List_entry &));
+
     bool is_out_of_bound(int position) const
     {
         if (0 <= position && position < count)
@@ -63,6 +65,7 @@ public:
     }
 
     Error_code insert(int position, const List_entry &x);
+    Error_code retrieve(int position, List_entry &x) const;
 
 protected:
     int count = 0;
@@ -127,6 +130,29 @@ int DoublyLinkedList<List_entry>::size() const
 }
 
 template <class List_entry>
+void DoublyLinkedList<List_entry>::traverse(void (*visit)(List_entry &))
+{
+    Node<List_entry> *iterator_forward = NULL, *iterator_back = NULL;
+    iterator_forward = current;
+    if (NULL != current)
+    {
+        iterator_back = current->back;
+    }
+
+    while (iterator_forward != NULL)
+    {
+        (*visit)(iterator_forward->entry);
+        iterator_forward = iterator_forward->next;
+    }
+
+    while (iterator_back != NULL)
+    {
+        (*visit)(iterator_back->entry);
+        iterator_back = iterator_back->back;
+    }
+}
+
+template <class List_entry>
 Error_code DoublyLinkedList<List_entry>::insert(int position, const List_entry &x)
 {
     if (position < 0 || position > count)
@@ -171,6 +197,21 @@ Error_code DoublyLinkedList<List_entry>::insert(int position, const List_entry &
     current = new_node;
     current_position = position;
     count++;
+
+    return success;
+}
+
+template <class List_entry>
+Error_code DoublyLinkedList<List_entry>::retrieve(int position, List_entry &x) const
+{
+    if (is_out_of_bound(position))
+    {
+        return out_of_bound;
+    }
+
+    set_position(position);
+
+    x = current->entry;
 
     return success;
 }

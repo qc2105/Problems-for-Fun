@@ -36,6 +36,33 @@ TEST(TestDoublyLinkedList, testEmpty)
     ASSERT_TRUE(dl.empty());
 }
 
+template <class List_entry>
+void add_one(List_entry &x)
+{
+    x += 1;
+}
+
+TEST(TestDoublyLinkedList, testTraverse)
+{
+    DoublyLinkedList<int> dl = DoublyLinkedList<int>();
+
+    dl.insert(0, 0);
+    dl.insert(1, 1);
+    dl.insert(2, 2);
+
+    dl.traverse(add_one);
+
+    int value;
+    dl.retrieve(0, value);
+    ASSERT_EQ(value, 1);
+
+    dl.retrieve(1, value);
+    ASSERT_EQ(value, 2);
+
+    dl.retrieve(2, value);
+    ASSERT_EQ(value, 3);
+}
+
 TEST(TestDoublyLinkedList, testInsert)
 {
     DoublyLinkedList<int> dl = DoublyLinkedList<int>();
