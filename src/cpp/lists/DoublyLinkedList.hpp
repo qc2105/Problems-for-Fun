@@ -66,6 +66,7 @@ public:
 
     Error_code insert(int position, const List_entry &x);
     Error_code retrieve(int position, List_entry &x) const;
+    Error_code replace(int position, const List_entry &x);
 
 protected:
     int count = 0;
@@ -212,6 +213,20 @@ Error_code DoublyLinkedList<List_entry>::retrieve(int position, List_entry &x) c
     set_position(position);
 
     x = current->entry;
+
+    return success;
+}
+
+template <class List_entry>
+Error_code DoublyLinkedList<List_entry>::replace(int position, const List_entry &x)
+{
+    if (is_out_of_bound(position))
+    {
+        return out_of_bound;
+    }
+
+    set_position(position);
+    current->entry = x;
 
     return success;
 }

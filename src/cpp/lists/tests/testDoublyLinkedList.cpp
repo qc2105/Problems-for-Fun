@@ -94,6 +94,35 @@ TEST(TestDoublyLinkedList, testClear)
     ASSERT_TRUE(dl.empty());
 }
 
+TEST(TestDoublyLinkedList, test_replace)
+{
+    DoublyLinkedList<int> dl = DoublyLinkedList<int>();
+
+    dl.insert(0, 5);
+
+    dl.insert(1, 6);
+
+    dl.insert(1, 7); // slist: 5->7->6
+
+    int value = -1;
+    int ret;
+
+    ret = dl.replace(1, 8);
+    ASSERT_EQ(ret, success);
+    dl.retrieve(1, value);
+    ASSERT_EQ(value, 8); // 5->8->6
+
+    ret = dl.replace(0, 9);
+    ASSERT_EQ(ret, success);
+    dl.retrieve(0, value);
+    ASSERT_EQ(value, 9); // 9->8->6
+
+    ret = dl.replace(2, 10);
+    ASSERT_EQ(ret, success);
+    dl.retrieve(2, value);
+    ASSERT_EQ(value, 10); // 9->8->10
+}
+
 int main()
 {
     InitGoogleTest();
