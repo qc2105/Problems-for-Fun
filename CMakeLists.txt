@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1.0)
 project("Problems for Fun")
 
-set(CMAKE_CXX_FLAGS "-g -Wall")
+set(CMAKE_CXX_FLAGS "-Wall -g -Wunused-parameter")
 
 include_directories(src/cpp/lists)
 
@@ -15,3 +15,6 @@ target_link_libraries(testContiguousList gtest pthread)
 
 add_executable(testSimplyLinkedList src/cpp/lists/tests/testSimplyLinkedList.cpp)
 target_link_libraries(testSimplyLinkedList gtest pthread)
+
+add_executable(testDoublyLinkedList src/cpp/lists/tests/testDoublyLinkedList.cpp)
+target_link_libraries(testDoublyLinkedList gtest pthread)

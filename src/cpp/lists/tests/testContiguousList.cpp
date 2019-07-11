@@ -288,7 +288,7 @@ TEST(TestContiguousList, test_split)
     }
 }
 
-int main(int argc, char *argv[])
+int main()
 {
     InitGoogleTest();
 
