@@ -44,6 +44,9 @@ class DoublyLinkedList
 public:
     DoublyLinkedList();
     DoublyLinkedList(const DoublyLinkedList<List_entry> &);
+
+    DoublyLinkedList<List_entry> &operator=(const DoublyLinkedList<List_entry>);
+
     ~DoublyLinkedList();
 
     bool empty() const;
@@ -83,6 +86,40 @@ DoublyLinkedList<List_entry>::DoublyLinkedList()
     count = 0;
     set_position(0);
     current = NULL;
+}
+
+template <class List_entry>
+DoublyLinkedList<List_entry>::DoublyLinkedList(const DoublyLinkedList<List_entry> &src_list)
+{
+    if (this != &src_list)
+    {
+        clear();
+        List_entry value;
+
+        for (int i = 0; i < src_list.size(); i++)
+        {
+            src_list.retrieve(i, value);
+            insert(i, value);
+        }
+    }
+}
+
+template <class List_entry>
+DoublyLinkedList<List_entry> &DoublyLinkedList<List_entry>::operator=(const DoublyLinkedList<List_entry> other)
+{
+    if (this != &other)
+    {
+        this->clear();
+        List_entry value;
+
+        for (int i = 0; i < other.size(); i++)
+        {
+            other.retrieve(i, value);
+            this->insert(i, value);
+        }
+    }
+
+    return *this;
 }
 
 template <class List_entry>

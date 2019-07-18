@@ -169,6 +169,46 @@ TEST(TestDoublyLinkedList, test_remove_and_retrieve)
     ASSERT_EQ(ret, out_of_bound);
 }
 
+TEST(TestDoublyLinkedList, test_copy_contor)
+{
+    DoublyLinkedList<int> dl = DoublyLinkedList<int>();
+    dl.insert(0, 0);
+    dl.insert(1, 1);
+    dl.insert(2, 2);
+
+    DoublyLinkedList<int> copied(dl);
+
+    int value = -1;
+    copied.retrieve(0, value);
+    ASSERT_EQ(value, 0);
+
+    copied.retrieve(1, value);
+    ASSERT_EQ(value, 1);
+
+    copied.retrieve(2, value);
+    ASSERT_EQ(value, 2);
+}
+
+TEST(TestDoublyLinkedList, test_assignment_operator)
+{
+    DoublyLinkedList<int> dl = DoublyLinkedList<int>();
+    dl.insert(0, 0);
+    dl.insert(1, 1);
+    dl.insert(2, 2);
+
+    DoublyLinkedList<int> assigned = dl;
+
+    int value = -1;
+    assigned.retrieve(0, value);
+    ASSERT_EQ(value, 0);
+
+    assigned.retrieve(1, value);
+    ASSERT_EQ(value, 1);
+
+    assigned.retrieve(2, value);
+    ASSERT_EQ(value, 2);
+}
+
 int main()
 {
     InitGoogleTest();
