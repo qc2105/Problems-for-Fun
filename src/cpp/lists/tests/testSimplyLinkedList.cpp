@@ -243,6 +243,20 @@ TEST(TestSimplyLinkedList, test_remove_and_retrieve)
 
     slist.remove(1, value);
     ASSERT_EQ(value, 7);
+    slist.retrieve(0, value);
+    ASSERT_EQ(value, 8);
+    slist.retrieve(1, value);
+    ASSERT_EQ(value, 6);
+    ASSERT_EQ(slist.size(), 2);
+
+    slist.insert(0, 9); // 9->8->6
+    slist.remove(2, value);
+    ASSERT_EQ(value, 6);
+    ASSERT_EQ(slist.size(), 2);
+    slist.retrieve(0, value);
+    ASSERT_EQ(value, 9);
+    slist.retrieve(1, value);
+    ASSERT_EQ(value, 8);
 }
 
 TEST(TestSimplyLinkedList, test_replace)

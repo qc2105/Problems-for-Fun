@@ -102,7 +102,7 @@ TEST(TestDoublyLinkedList, test_replace)
 
     dl.insert(1, 6);
 
-    dl.insert(1, 7); // slist: 5->7->6
+    dl.insert(1, 7); // dl: 5->7->6
 
     int value = -1;
     int ret;
@@ -121,6 +121,92 @@ TEST(TestDoublyLinkedList, test_replace)
     ASSERT_EQ(ret, success);
     dl.retrieve(2, value);
     ASSERT_EQ(value, 10); // 9->8->10
+}
+
+TEST(TestDoublyLinkedList, test_remove_and_retrieve)
+{
+    DoublyLinkedList<int> dl = DoublyLinkedList<int>();
+
+    dl.insert(0, 5);
+
+    dl.insert(1, 6);
+
+    dl.insert(1, 7); // dl: 5<->7<->6
+
+    int x = 0;
+    int ret = dl.remove(0, x); // dl: 7<->6
+
+    ASSERT_EQ(ret, success);
+    ASSERT_EQ(x, 5);
+    ASSERT_EQ(dl.size(), 2);
+    ret = dl.retrieve(0, x);
+    ASSERT_EQ(x, 7);
+    ASSERT_EQ(ret, success);
+    ret = dl.retrieve(1, x);
+    ASSERT_EQ(x, 6);
+    ASSERT_EQ(ret, success);
+
+    dl.insert(0, 5); // dl: 5<->7<->6
+
+    ret = dl.remove(1, x);
+    ASSERT_EQ(ret, success);
+    ASSERT_EQ(x, 7);
+    ASSERT_EQ(dl.size(), 2);
+    ret = dl.retrieve(0, x);
+    ASSERT_EQ(x, 5);
+    ASSERT_EQ(ret, success);
+
+    dl.insert(1, 7);
+
+    ret = dl.remove(2, x);
+    ASSERT_EQ(ret, success);
+    ASSERT_EQ(x, 6);
+    ASSERT_EQ(dl.size(), 2);
+    ret = dl.retrieve(0, x);
+    ASSERT_EQ(x, 5);
+    ASSERT_EQ(ret, success);
+    ret = dl.retrieve(2, x);
+    ASSERT_EQ(ret, out_of_bound);
+}
+
+TEST(TestDoublyLinkedList, test_copy_contor)
+{
+    DoublyLinkedList<int> dl = DoublyLinkedList<int>();
+    dl.insert(0, 0);
+    dl.insert(1, 1);
+    dl.insert(2, 2);
+
+    DoublyLinkedList<int> copied(dl);
+
+    int value = -1;
+    copied.retrieve(0, value);
+    ASSERT_EQ(value, 0);
+
+    copied.retrieve(1, value);
+    ASSERT_EQ(value, 1);
+
+    copied.retrieve(2, value);
+    ASSERT_EQ(value, 2);
+}
+
+TEST(TestDoublyLinkedList, test_assignment_operator)
+{
+    DoublyLinkedList<int> dl = DoublyLinkedList<int>();
+    dl.insert(0, 0);
+    dl.insert(1, 1);
+    dl.insert(2, 2);
+
+    DoublyLinkedList<int> assigned = dl;
+
+    int value = -1;
+    assigned.retrieve(0, value);
+    ASSERT_EQ(value, 0);
+
+    assigned.retrieve(1, value);
+    ASSERT_EQ(value, 1);
+
+    assigned.retrieve(2, value);
+    ASSERT_EQ(value, 2);
 }
 
 int main()

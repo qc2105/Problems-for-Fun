@@ -44,6 +44,9 @@ class DoublyLinkedList
 public:
     DoublyLinkedList();
     DoublyLinkedList(const DoublyLinkedList<List_entry> &);
+
+    DoublyLinkedList<List_entry> &operator=(const DoublyLinkedList<List_entry>);
+
     ~DoublyLinkedList();
 
     bool empty() const;
@@ -67,6 +70,7 @@ public:
     Error_code insert(int position, const List_entry &x);
     Error_code retrieve(int position, List_entry &x) const;
     Error_code replace(int position, const List_entry &x);
+    Error_code remove(int position, List_entry &x);
 
 protected:
     int count = 0;
@@ -82,6 +86,40 @@ DoublyLinkedList<List_entry>::DoublyLinkedList()
     count = 0;
     set_position(0);
     current = NULL;
+}
+
+template <class List_entry>
+DoublyLinkedList<List_entry>::DoublyLinkedList(const DoublyLinkedList<List_entry> &src_list)
+{
+    if (this != &src_list)
+    {
+        clear();
+        List_entry value;
+
+        for (int i = 0; i < src_list.size(); i++)
+        {
+            src_list.retrieve(i, value);
+            insert(i, value);
+        }
+    }
+}
+
+template <class List_entry>
+DoublyLinkedList<List_entry> &DoublyLinkedList<List_entry>::operator=(const DoublyLinkedList<List_entry> other)
+{
+    if (this != &other)
+    {
+        this->clear();
+        List_entry value;
+
+        for (int i = 0; i < other.size(); i++)
+        {
+            other.retrieve(i, value);
+            this->insert(i, value);
+        }
+    }
+
+    return *this;
 }
 
 template <class List_entry>
@@ -227,6 +265,56 @@ Error_code DoublyLinkedList<List_entry>::replace(int position, const List_entry 
 
     set_position(position);
     current->entry = x;
+
+    return success;
+}
+
+template <class List_entry>
+Error_code DoublyLinkedList<List_entry>::remove(int position, List_entry &x)
+{
+    if (is_out_of_bound(position))
+    {
+        return out_of_bound;
+    }
+
+    Node<List_entry> *preceding = NULL, *following = NULL, *temp = NULL;
+
+    if (0 == position)
+    {
+        set_position(position);
+        temp = current;
+
+        x = current->entry;
+        preceding = NULL;
+
+        following = current->next;
+        current = following;
+
+        if (following != NULL)
+        {
+            following->back = preceding;
+        }
+
+        delete temp;
+    }
+    else
+    {
+        set_position(position - 1);
+        temp = current->next;
+        x = temp->entry;
+        preceding = current;
+        following = temp->next;
+
+        preceding->next = following;
+        if (following != NULL)
+        {
+            following->back = preceding;
+        }
+
+        delete temp;
+    }
+
+    count--;
 
     return success;
 }
